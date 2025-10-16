@@ -9,6 +9,8 @@ const app = Fastify({ logger: true });
 await app.register(cors, { origin: env.CORS_ORIGIN });
 await app.register(rateLimit, { max: env.COOLDOWN_SEC });
 
-await app.register(apiRoutes);
+await app.register(apiRoutes, {
+    prefix: env.BASE_PATH
+});
 
 await app.listen({ port: env.PORT, host: "0.0.0.0" });

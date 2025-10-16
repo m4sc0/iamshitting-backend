@@ -1,7 +1,11 @@
 import { z } from "zod";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export const env = z.object({
-    DEV: z.boolean().default(true),
+    BASE_PATH: z.string().startsWith('/').default('/api'),
     PORT: z.coerce.number().default(8080),
     REDIS_URL: z.string().default("redis://redis:6379"),
     CORS_ORIGIN: z.array(z.string()).default(["https://iamshitting.com"]),
