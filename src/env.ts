@@ -11,4 +11,6 @@ export const env = z.object({
     CORS_ORIGIN: z.array(z.string()).default(["https://iamshitting.com"]),
     TTL_SEC: z.coerce.number().default(900),
     COOLDOWN_SEC: z.coerce.number().default(60),
+    DEVELOPMENT: z.number().gte(0).lte(1).default(1),
+    VERSION: z.string().default("alpha-0.0.1"),
 }).parse(process.env);
