@@ -1,8 +1,8 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
-import { env } from "./env";
-import apiRoutes from "./routes/api";
+import { env } from "./env.js";
+import apiRoutes from "./routes/api.js";
 
 const app = Fastify({ logger: true });
 

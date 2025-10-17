@@ -1,8 +1,6 @@
 import { FastifyInstance } from "fastify"
 import z from "zod";
-import { env } from "../env";
-
-const Body = z.object({ lat: z.number().gte(-90).lte(90), lon: z.number().gte(-180).lte(180) });
+import { env } from "../env.js";
 
 async function apiRoutes(app: FastifyInstance) {
     app.get("/ping", async (req, res) => {
