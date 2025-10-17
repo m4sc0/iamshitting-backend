@@ -8,7 +8,7 @@ async function apiRoutes(app: FastifyInstance) {
     app.get("/ping", async (req, res) => {
         return res.code(200).send("pong");
     });
-    app.get('/version', async (req, res) => {
+    app.get('/meta', async (req, res) => {
         if (env.DEVELOPMENT == 1) {
             return res.code(200).send({
                 data: {
@@ -17,6 +17,7 @@ async function apiRoutes(app: FastifyInstance) {
                     cooldown_seconds: env.COOLDOWN_SEC,
                     port: env.PORT,
                     cors_origin: env.CORS_ORIGIN,
+                    build: env.BUILD ?? "No build given"
                 }
             });
         } else {

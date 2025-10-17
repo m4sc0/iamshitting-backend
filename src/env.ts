@@ -13,4 +13,5 @@ export const env = z.object({
     COOLDOWN_SEC: z.coerce.number().default(60),
     DEVELOPMENT: z.number().gte(0).lte(1).default(1),
     VERSION: z.string().default("alpha-0.0.1"),
+    BUILD: z.string().optional(),
 }).parse(process.env);
