@@ -30,7 +30,7 @@ pipeline {
                         --network proxy \
                         -e NODE_ENV=development \
                         -e DEVELOPMENT=true \
-                        -e BUILD="$BUILD_NUMBER"
+                        -e BUILD="$BUILD_NUMBER" \
                         $IMAGE
                 """
             }
