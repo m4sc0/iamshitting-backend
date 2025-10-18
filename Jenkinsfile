@@ -10,11 +10,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-            script {
+                script {
                     env.GIT_SHA     = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                     env.GIT_MSG     = sh(script: 'git log -1 --pretty=%s', returnStdout: true).trim()
                     env.GIT_AUTHOR  = sh(script: 'git log -1 --pretty=%an', returnStdout: true).trim()
-            }
+                }
             }
         }
         stage('Build Image') {
@@ -22,10 +22,17 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh '''
+                sh """
                     docker rm -f $CONTAINER || true
-                    docker run -d --name $CONTAINER --restart unless-stopped --network proxy $IMAGE
-                '''
+                    docker run -d \
+                        --name $CONTAINER \
+                        --restart unless-stopped \
+                        --network proxy \
+                        -e NODE_ENV=development \
+                        -e DEVELOPMENT=true \
+                        -e BUILD="$BUILD_NUMBER"
+                        $IMAGE
+                """
             }
         }
     }
