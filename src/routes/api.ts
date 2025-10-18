@@ -7,13 +7,12 @@ async function apiRoutes(app: FastifyInstance) {
         return res.code(200).send("pong");
     });
     app.get('/meta', async (req, res) => {
-        if (env.DEVELOPMENT == 1) {
+        if (env.DEVELOPMENT === true) {
             return res.code(200).send({
                 data: {
                     version: env.VERSION,
                     ttl_seconds: env.TTL_SEC,
                     cooldown_seconds: env.COOLDOWN_SEC,
-                    port: env.PORT,
                     cors_origin: env.CORS_ORIGIN,
                     build: env.BUILD ?? "No build given"
                 }

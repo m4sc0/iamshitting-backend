@@ -9,5 +9,5 @@ RUN npm run build
 FROM node:20-alpine AS serve
 WORKDIR /app
 COPY --from=build /app .
-EXPOSE 3000
+EXPOSE 8080
 CMD ["node", "dist/index.js"]

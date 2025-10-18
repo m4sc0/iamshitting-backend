@@ -13,4 +13,4 @@ await app.register(apiRoutes, {
     prefix: env.BASE_PATH
 });
 
-await app.listen({ port: env.PORT, host: "0.0.0.0" });
+await app.listen({ port: 8080, host: "0.0.0.0" });
