@@ -10,11 +10,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-            }
             script {
                     env.GIT_SHA     = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                     env.GIT_MSG     = sh(script: 'git log -1 --pretty=%s', returnStdout: true).trim()
                     env.GIT_AUTHOR  = sh(script: 'git log -1 --pretty=%an', returnStdout: true).trim()
+            }
             }
         }
         stage('Build Image') {
