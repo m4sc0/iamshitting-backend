@@ -5,6 +5,7 @@ pipeline {
     environment {
         IMAGE = 'iamshitting/backend:dev'
         CONTAINER = 'iamshitting-backend-dev'
+        DATABASE_URL = credentials('db-url-dev')
     }
     stages {
         stage('Checkout') {
@@ -25,22 +26,20 @@ pipeline {
                 sh """
                     docker rm -f $CONTAINER || true
 
-                    set -a
-                    . /srv/db/dev.env
-                    set +a
-                    DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
+                    echo $DATABASE_URL
 
                     docker run -d \
                         --name $CONTAINER \
                         --restart unless-stopped \
                         --network proxy \
-                        --network iamshitting-dev \
                         --env-file /srv/db/dev.env \
                         -e NODE_ENV=development \
                         -e DEVELOPMENT=true \
                         -e BUILD="$BUILD_NUMBER" \
                         -e DB_URL="$DATABASE_URL" \
                         $IMAGE
+
+                    docker network connect iamshitting-dev "$CONTAINER" || true
                 """
             }
         }
