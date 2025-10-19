@@ -28,9 +28,12 @@ pipeline {
                         --name $CONTAINER \
                         --restart unless-stopped \
                         --network proxy \
+                        --network iamshitting-dev \
+                        --env-file /srv/db/dev.env \
                         -e NODE_ENV=development \
                         -e DEVELOPMENT=true \
                         -e BUILD="$BUILD_NUMBER" \
+                        -e DB_URL="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB" \
                         $IMAGE
                 """
             }

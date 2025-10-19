@@ -11,7 +11,6 @@ const parseCsv = (v: unknown) =>
 
 export const env = z.object({
     BASE_PATH: z.string().startsWith('/').default('/api'),
-    REDIS_URL: z.string().default("redis://redis:6379"),
     CORS_ORIGIN: z.preprocess(parseCsv, z.array(z.string()))
                .default(["https://iamshitting.com"]),
     TTL_SEC: z.coerce.number().default(900),
@@ -19,4 +18,5 @@ export const env = z.object({
     DEVELOPMENT: z.coerce.boolean().default(false),
     VERSION: z.string().default("alpha-0.0.1"),
     BUILD: z.string().optional(),
+    DB_URL: z.string(),
 }).parse(process.env);
