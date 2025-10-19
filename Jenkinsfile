@@ -26,13 +26,10 @@ pipeline {
                 sh """
                     docker rm -f $CONTAINER || true
 
-                    echo $DATABASE_URL
-
                     docker run -d \
                         --name $CONTAINER \
                         --restart unless-stopped \
                         --network proxy \
-                        --env-file /srv/db/dev.env \
                         -e NODE_ENV=development \
                         -e DEVELOPMENT=true \
                         -e BUILD="$BUILD_NUMBER" \
