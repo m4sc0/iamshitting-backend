@@ -24,6 +24,12 @@ pipeline {
             steps {
                 sh """
                     docker rm -f $CONTAINER || true
+
+                    set -a
+                    . /srv/db/dev.env
+                    set +a
+                    DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
+
                     docker run -d \
                         --name $CONTAINER \
                         --restart unless-stopped \
@@ -33,7 +39,7 @@ pipeline {
                         -e NODE_ENV=development \
                         -e DEVELOPMENT=true \
                         -e BUILD="$BUILD_NUMBER" \
-                        -e DB_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}" \
+                        -e DB_URL="$DATABASE_URL" \
                         $IMAGE
                 """
             }
