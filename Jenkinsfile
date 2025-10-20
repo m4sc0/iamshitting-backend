@@ -34,7 +34,7 @@ pipeline {
                         -e DEVELOPMENT=true \
                         -e BUILD="$BUILD_NUMBER" \
                         -e DB_URL="$DATABASE_URL" \
-                        -e CORS_ORIGIN="dev.iamshitting.com,localhost:5173" \
+                        -e CORS_ORIGIN="https://dev.iamshitting.com,http://localhost:5173" \
                         $IMAGE
 
                     docker network connect iamshitting-dev "$CONTAINER" || true
